@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Ejercicio 8</title>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/d3-color@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/d3-interpolate@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3"></script>
+	<style type="text/css">
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+		var w = 960, h = 500, flag = 0, flag2 = 0;
+		var dataset = [5, 10, 15, 20, 25];
+		var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+		var circles = svg.selectAll("circle")
+			.data(dataset)
+			.join("circle");
+		circles.attr("cx", function (d, i) {
+			return (i * 50) + 25;
+		})
+			.attr("cy", h / 2)
+			.attr("r", function (d) {
+				return d;
+			})
+			.attr("fill", "yellow")
+			.attr("stroke", "black")
+			.on("mouseover", handleMouseOver)
+			.on("mouseout", handleMouseOut);
+		// Función para aumentar el tamaño
+		// En los atributos del circulo, cuando se haga "mouseOver", llamo a esta función
+		// Capturo el atributo actual "r" en una variable y se lo asigno nuevamente multiplicado * 1.5
+		function handleMouseOver(evento, d) {
+			var r= d3.select(this).attr("r");
+			d3.select(this)
+			.style("fill", "red")
+			.attr("r", (r*1.5));
+		}
+
+		// Función para reducir el tamaño
+		// En los atributos del circulo, cuando se haga "mouseOut", llamo a esta función
+		// Capturo el atributo actual "r" en una variable y se lo asigno nuevamente dividiendolo / 1.5
+		function handleMouseOut(evento, d) {
+			var r= d3.select(this).attr("r");
+			d3.select(this).style("fill", "yellow")
+			.attr("r", (r/1.5));;
+		}
+	</script>
+</body>
+
+</html>
